@@ -35,6 +35,8 @@ spec:
               value: "120000"
             - name: STRIMZI_TOPIC_METADATA_MAX_ATTEMPTS
               value: "6"
+            - name: STRIMZI_USE_ZOOKEEPER_TOPIC_STORE
+              value: "true"
             - name: STRIMZI_LOG_LEVEL
               value: INFO
             - name: STRIMZI_PUBLIC_CA
