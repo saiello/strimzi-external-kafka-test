@@ -1,0 +1,18 @@
+{
+    "CN": "kafka",
+    "names": [
+        {
+            "C":  "IT",
+            "L":  "Rome",
+            "O":  "Saiello"
+        }
+    ],
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+   "hosts": [
+      "localhost",
+      "host.minikube.internal"
+   ]
+}

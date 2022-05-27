@@ -37,12 +37,31 @@ spec:
               value: "6"
             - name: STRIMZI_LOG_LEVEL
               value: INFO
+            - name: STRIMZI_PUBLIC_CA
+              value: "true"
+            - name: STRIMZI_TLS_AUTH_ENABLED
+              value: "false"
             - name: STRIMZI_TLS_ENABLED
               value: "false"
+            - name: STRIMZI_SASL_ENABLED
+              value: "false"
+            - name: STRIMZI_SECURITY_PROTOCOL
+              value: SSL
+            - name: STRIMZI_TRUSTSTORE_LOCATION
+              value: "/etc/mtls-admin-certs/truststore.p12"
+            - name: STRIMZI_TRUSTSTORE_PASSWORD
+              value: "123456"
+            - name: STRIMZI_KEYSTORE_LOCATION
+              value: "/etc/mtls-admin-certs/keystore.p12"
+            - name: STRIMZI_KEYSTORE_PASSWORD
+              value: "123456"
             - name: STRIMZI_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+          volumeMounts:
+            - name: my-cluster-admin-certs
+              mountPath: /etc/mtls-admin-certs/
           livenessProbe:
             httpGet:
               path: /healthy
@@ -62,5 +81,10 @@ spec:
             requests:
               memory: 256Mi
               cpu: 500m
+      volumes:
+        - name: my-cluster-admin-certs
+          configMap:
+            name: my-cluster-admin-certs
+            defaultMode: 420
   strategy:
     type: Recreate
