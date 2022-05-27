@@ -28,7 +28,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: STRIMZI_KAFKA_BOOTSTRAP_SERVERS
-              value: host.minikube.internal:9094
+              value: host.minikube.internal:9095
             - name: STRIMZI_SECRET_PREFIX
               value: kafka-client-
             - name: STRIMZI_LABELS

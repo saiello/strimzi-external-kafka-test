@@ -9,6 +9,11 @@ Prerequisites:
 - minikube ( tested with v1.25.2 )
 - kafka ( tested with RH AMQ Streams 1.7 )
 
+## Related Links
+
+- [Deploying the standalone Topic Operator](https://strimzi.io/docs/operators/latest/deploying.html#deploying-the-topic-operator-standalone-str)
+- [Deploying the standalone User Operator](https://strimzi.io/docs/operators/latest/deploying.html#deploying-the-user-operator-standalone-str)
+
 ## Start minikube
 
 ```
