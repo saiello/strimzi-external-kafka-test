@@ -34,11 +34,11 @@ spec:
             - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
               value: "120000"
             - name: STRIMZI_TOPIC_METADATA_MAX_ATTEMPTS
-              value: "6"
+              value: "2"
             - name: STRIMZI_USE_ZOOKEEPER_TOPIC_STORE
               value: "true"
             - name: STRIMZI_LOG_LEVEL
-              value: INFO
+              value: DEBUG
             - name: STRIMZI_PUBLIC_CA
               value: "true"
             - name: STRIMZI_TLS_AUTH_ENABLED

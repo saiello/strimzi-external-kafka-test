@@ -93,3 +93,46 @@ Current ACLs for resource `ResourcePattern(resourceType=TOPIC, name=my-topic, pa
         (principal=User:user3, host=*, operation=READ, permissionType=ALLOW)
         ...
 ```
+
+
+
+
+
+cfssl genkey -initca ca_root.json |  cfssljson -bare ca
+cfssl genkey ca_intermediate.json | cfssljson -bare intermediate
+cfssl sign -config config.json -profile CA -ca ca.pem -ca-key ca-key.pem intermediate.csr intermediate.json | cfssljson -bare intermediate
+
+cfssl genkey strimzi.json | cfssljson -bare strimzi
+cfssl sign -config config.json -profile clusterCA -ca intermediate.pem -ca-key intermediate-key.pem strimzi.csr strimzi.json | cfssljson -bare strimzi
+
+	
+cfssl genkey server.json | cfssljson -bare server
+cfssl genkey admin.json | cfssljson -bare admin
+
+cfssl sign -config config.json -ca intermediate.pem -ca-key intermediate-key.pem -profile server  server.csr | cfssljson -bare server
+cfssl sign -config config.json -ca intermediate.pem -ca-key intermediate-key.pem -profile client  admin.csr | cfssljson -bare admin
+
+
+# server bundle
+cat server.pem >> server-bundle.crt
+cat intermediate.pem >> server-bundle.crt
+cat ca.pem >> server-bundle.crt
+
+
+# client bundle 
+
+cat admin.pem >> admin-bundle.crt
+cat intermediate.pem >> admin-bundle.crt
+cat ca.pem >> admin-bundle.crt
+
+
+# Convert to pkcs12
+
+openssl pkcs12 -export -in server-bundle.crt -inkey server-key.pem -out server-bundle.p12
+openssl pkcs12 -export -in admin-bundle.crt -inkey admin-key.pem -out admin-bundle.p12
+
+# Convert keys to PKCS8
+openssl pkcs8 -topk8 -nocrypt -in ca-key.pem -out ca.key
+openssl pkcs8 -topk8 -nocrypt -in intermediate-key.pem -out intermediate.key
+openssl pkcs8 -topk8 -nocrypt -in clients-key.pem -out clients.key
+openssl pkcs8 -topk8 -nocrypt -in strimzi-key.pem -out strimzi.key

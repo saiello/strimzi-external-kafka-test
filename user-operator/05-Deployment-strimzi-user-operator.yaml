@@ -47,6 +47,16 @@ spec:
               value: "365"
             - name: STRIMZI_CA_RENEWAL
               value: "30"
+            - name: STRIMZI_SECURITY_PROTOCOL
+              value: SSL
+            - name: STRIMZI_TRUSTSTORE_LOCATION
+              value: "/etc/mtls-admin-certs/truststore.p12"
+            - name: STRIMZI_TRUSTSTORE_PASSWORD
+              value: "123456"
+            - name: STRIMZI_KEYSTORE_LOCATION
+              value: "/etc/mtls-admin-certs/keystore.p12"
+            - name: STRIMZI_KEYSTORE_PASSWORD
+              value: "123456"
           livenessProbe:
             httpGet:
               path: /healthy
